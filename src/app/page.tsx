@@ -16,7 +16,7 @@ interface Offer {
 interface Product {
   id: string;
   url: string;
-  timestamp: any;
+  timestamp: string;
   offers: Offer[];
   minimumProductValue: string;
   price: string;
@@ -29,7 +29,7 @@ export default function OffersPage() {
   const [productLink, setProductLink] = useState("");
   const [minimumProductValue, setMinimumProductValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<object>(null);
   const router = useRouter();
 
   useEffect(() => {

@@ -5,12 +5,19 @@ import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
 
-const SignIn: React.FC = () => {
+type SignInProps = {
+  user: string;
+};
+
+const SignIn: React.FC<SignInProps> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  
+  
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +27,7 @@ const SignIn: React.FC = () => {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Signed in successfully");
       router.push("/");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     } finally {
       setLoading(false);
