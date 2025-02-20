@@ -281,6 +281,9 @@ export default function OffersPage() {
                   Product Description
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Offer ID
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Actions
                 </th>
               </tr>
@@ -336,6 +339,10 @@ export default function OffersPage() {
 
                   <td className="px-4 py-4 text-sm text-gray-900 text-left">
                     {product.description ? `${product.description}` : "No data"}
+                  </td>
+
+                  <td className="px-4 py-4 text-sm text-gray-900 text-left">
+                    {product.offerId ? `${product.offerId}` : "No data"}
                   </td>
                   <td className="px-4 py-4">
                     <button
