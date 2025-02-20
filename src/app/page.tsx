@@ -57,14 +57,15 @@ export default function OffersPage() {
         for (const productDoc of productsSnapshot.docs) {
           const productId = productDoc.id;
           const productData = productDoc.data();
-          const minimumProductValue = productDoc.data()["minimumProductValue"];
-          const productPrice = productDoc.data()["price"];
+          const minimumProductValue = productDoc.data().minimumProductValue;
+          const productPrice = productDoc.data().price;
           const offersQuery = collection(db, `products/${productId}/productOffers`);
           const offersSnapshot = await getDocs(offersQuery);
 
           const offersData: Offer[] = offersSnapshot.docs.map((offerDoc) => ({
             id: offerDoc.id,
-            ...offerDoc.data(),
+            seller: offerDoc.data().seller, // Ensure seller is included
+            price: offerDoc.data().price,  // Ensure price is included
           }));
 
           productsData.push({
@@ -103,7 +104,7 @@ export default function OffersPage() {
       });
 
       setProducts((prev) => [
-        { id: docRef.id, url: productLink, minimumProductValue, timestamp: new Date(), offers: [] },
+        { id: docRef.id, url: productLink, minimumProductValue, timestamp: new Date().toISOString(), offers: [] },
         ...prev,
       ]);
 
