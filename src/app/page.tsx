@@ -31,6 +31,7 @@ interface Product {
   price: string;
   APIkey: string;
   description: string;
+  offerId: string;
 }
 
 export default function OffersPage() {
@@ -41,6 +42,7 @@ export default function OffersPage() {
   const [minimumProductValue, setMinimumProductValue] = useState("");
   const [APIkey, setAPIkey] = useState("");
   const [description, setDescription] = useState("");
+  const [offerId, setOfferId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState<object | null>(null);
   const router = useRouter();
@@ -72,6 +74,7 @@ export default function OffersPage() {
 
         for (const productDoc of productsSnapshot.docs) {
           const productId = productDoc.id;
+          const offerId = productDoc.data().offerId;
           const productData = productDoc.data();
           const minimumProductValue = productDoc.data().minimumProductValue;
           const APIkey = productDoc.data().APIkey;
@@ -98,6 +101,7 @@ export default function OffersPage() {
             offers: offersData,
             APIkey: APIkey,
             description: description,
+            offerId: offerId,
           });
         }
 
@@ -127,6 +131,7 @@ export default function OffersPage() {
         price: "",
         APIkey,
         description,
+        offerId,
       });
   
       setProducts((prev) => [
@@ -137,8 +142,9 @@ export default function OffersPage() {
           timestamp: new Date().toISOString(),
           offers: [],
           price: "", 
-          APIkey,  // ✅ Ensure APIkey is included
-          description,  // ✅ Ensure description is included
+          APIkey,  
+          description, 
+          offerId
         },
         ...prev,
       ]);
@@ -147,6 +153,7 @@ export default function OffersPage() {
       setMinimumProductValue("");
       setAPIkey("");
       setDescription("");
+      setOfferId("")
     } catch (err) {
       setError("Failed to add product. Please try again.");
       console.error(err);
@@ -231,6 +238,14 @@ export default function OffersPage() {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Enter Offer id"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={offerId}
+              onChange={(e) => setOfferId(e.target.value)}
               required
             />
             <button
