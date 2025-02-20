@@ -92,22 +92,30 @@ export default function OffersPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!productLink.trim() || isSubmitting) return;
-
+  
     setIsSubmitting(true);
     try {
       const docRef = await addDoc(collection(db, "products"), {
         url: productLink,
         minimumProductValue,
         timestamp: serverTimestamp(),
+        price: "", // Add a default price (empty string or a placeholder value)
       });
-
+  
       setProducts((prev) => [
-        { id: docRef.id, url: productLink, minimumProductValue, timestamp: new Date().toISOString(), offers: [] },
+        {
+          id: docRef.id,
+          url: productLink,
+          minimumProductValue,
+          timestamp: new Date().toISOString(),
+          offers: [],
+          price: "", // Add a default price to match the Product interface
+        },
         ...prev,
       ]);
-
+  
       setProductLink("");
       setMinimumProductValue("");
     } catch (err) {
