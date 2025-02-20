@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
 
 type SignInProps = {
-  user: string;
+  user: unknown;
 };
 
 const SignIn: React.FC<SignInProps> = () => {
