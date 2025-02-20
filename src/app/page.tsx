@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
-import { FaTrash } from "react-icons/fa"; // Import a trash icon from React Icons
+import { FaTrash } from "react-icons/fa";
 
 interface Offer {
   id: string;
@@ -36,7 +36,7 @@ export default function OffersPage() {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
-        router.push("/sign-in"); // Redirect unauthenticated users
+        router.push("/sign-in");
       } else {
         setUser(currentUser);
       }
@@ -119,10 +119,7 @@ export default function OffersPage() {
 
   const handleDeleteProduct = async (productId: string) => {
     try {
-      // Delete the product document
       await deleteDoc(doc(db, "products", productId));
-
-      // Remove the product from the local state
       setProducts((prev) => prev.filter((product) => product.id !== productId));
     } catch (err) {
       setError("Failed to delete product. Please try again.");
@@ -153,29 +150,29 @@ export default function OffersPage() {
   return (
     <div className="min-h-screen bg-gray-100 py-10">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">Product Offers</h1>
+        <h1 className="text-2xl md:text-4xl font-bold text-center text-gray-800 mb-6">Product Offers</h1>
 
-        <form onSubmit={handleSubmit} className="mb-10">
-          <div className="flex flex-col md:flex-row gap-4">
+        <form onSubmit={handleSubmit} className="mb-6">
+          <div className="flex flex-col gap-4">
             <input
               type="text"
               placeholder="Enter new product link"
-              className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={productLink}
               onChange={(e) => setProductLink(e.target.value)}
               required
             />
             <input
               type="text"
-              placeholder="Enter The minimum value"
-              className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter the minimum value"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={minimumProductValue}
               onChange={(e) => setMinimumProductValue(e.target.value)}
               required
             />
             <button
               type="submit"
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+              className="w-full bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors duration-300"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Adding..." : "Add Product"}
@@ -183,30 +180,30 @@ export default function OffersPage() {
           </div>
         </form>
 
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-white rounded-lg shadow-lg overflow-x-auto">
           <table className="min-w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product URL</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Offers</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">SELLER</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Minimum Value</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Our Current Price</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product URL</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Offers</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Seller</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Min Value</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Current Price</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {products.map((product) => (
                 <tr key={product.id} className="hover:bg-gray-50 transition-colors duration-200">
-                  <td className="px-6 py-4">
-                    <a href={product.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                      {product.url}
+                  <td className="px-4 py-4">
+                    <a href={product.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">
+                      PRODUCT LINK
                     </a>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4">
                     {product.offers.length > 0 ? (
                       product.offers.map((offer) => (
-                        <div key={offer.id} className="flex items-center gap-10">
+                        <div key={offer.id} className="flex items-center gap-2">
                           <p className="text-sm text-gray-900 font-bold">R {offer.price}</p>
                         </div>
                       ))
@@ -214,10 +211,10 @@ export default function OffersPage() {
                       <p className="text-gray-500 text-sm">No offers yet</p>
                     )}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4">
                     {product.offers.length > 0 ? (
                       product.offers.map((offer) => (
-                        <div key={offer.id} className="flex items-center gap-10">
+                        <div key={offer.id} className="flex items-center gap-2">
                           <p className="text-sm text-gray-900 font-bold">{offer.seller}</p>
                         </div>
                       ))
@@ -225,9 +222,9 @@ export default function OffersPage() {
                       <p className="text-gray-500 text-sm">No offers yet</p>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500 text-left">{product.minimumProductValue}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500 text-left">{product.price ? `R ${product.price}`:"No data For now"}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4 text-sm text-gray-500 text-left">{product.minimumProductValue}</td>
+                  <td className="px-4 py-4 text-sm text-gray-500 text-left">{product.price ? `R ${product.price}` : "No data"}</td>
+                  <td className="px-4 py-4">
                     <button
                       onClick={() => handleDeleteProduct(product.id)}
                       className="text-red-500 hover:text-red-700 transition-colors duration-300"
