@@ -20,7 +20,7 @@ const SignIn: React.FC = () => {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Signed in successfully");
       router.push("/");
-    } catch (err: unknown) {
+    } catch {
       setError("Error please try again");
     } finally {
       setLoading(false);
