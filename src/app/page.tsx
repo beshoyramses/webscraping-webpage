@@ -115,9 +115,9 @@ export default function OffersPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!productLink.trim() || isSubmitting) return;
-
+  
     setIsSubmitting(true);
     try {
       const docRef = await addDoc(collection(db, "products"), {
@@ -128,7 +128,7 @@ export default function OffersPage() {
         APIkey,
         description,
       });
-
+  
       setProducts((prev) => [
         {
           id: docRef.id,
@@ -136,11 +136,13 @@ export default function OffersPage() {
           minimumProductValue,
           timestamp: new Date().toISOString(),
           offers: [],
-          price: "", // Add a default price to match the Product interface
+          price: "", 
+          APIkey,  // ✅ Ensure APIkey is included
+          description,  // ✅ Ensure description is included
         },
         ...prev,
       ]);
-
+  
       setProductLink("");
       setMinimumProductValue("");
       setAPIkey("");
@@ -152,6 +154,7 @@ export default function OffersPage() {
       setIsSubmitting(false);
     }
   };
+  
 
   const handleDeleteProduct = async (productId: string) => {
     try {
