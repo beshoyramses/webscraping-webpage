@@ -266,12 +266,6 @@ export default function OffersPage() {
                   Product URL
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Offers
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Seller
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Min Value
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
@@ -304,32 +298,8 @@ export default function OffersPage() {
                       PRODUCT LINK
                     </a>
                   </td>
-                  <td className="px-4 py-4">
-                    {product.offers.length > 0 ? (
-                      product.offers.map((offer) => (
-                        <div key={offer.id} className="flex items-center gap-2">
-                          <p className="text-sm text-gray-900 font-bold">
-                            R {offer.price}
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-gray-500 text-sm">No offers yet</p>
-                    )}
-                  </td>
-                  <td className="px-4 py-4">
-                    {product.offers.length > 0 ? (
-                      product.offers.map((offer) => (
-                        <div key={offer.id} className="flex items-center gap-2">
-                          <p className="text-sm text-gray-900 font-bold">
-                            {offer.seller}
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-gray-500 text-sm">No offers yet</p>
-                    )}
-                  </td>
+              
+                 
                   <td className="px-4 py-4 text-sm text-gray-900 text-left">
                     {product.minimumProductValue}
                   </td>
