@@ -29,7 +29,7 @@ export default function OffersPage() {
   const [productLink, setProductLink] = useState("");
   const [minimumProductValue, setMinimumProductValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [user, setUser] = useState<object>(null);
+  const [user, setUser] = useState<object | null>(null);
   const router = useRouter();
 
   useEffect(() => {
